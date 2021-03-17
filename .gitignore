@@ -5,4 +5,4 @@ release/
 src/blocks/build
 .DS_Store
 node_modules
-.code-workspace
+*.code-workspace
