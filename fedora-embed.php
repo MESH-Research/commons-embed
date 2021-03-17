@@ -35,10 +35,11 @@ if ( DEV_BUILD ) {
 }
 
 if ( DEV_BUILD ) {
+	global $wpdb;
 	$wpdb->show_errors = true;
 }
 
+require_once $require_prefix . 'settings-page.php';
+
 // Adds setting options.
 add_options();
-
-require_once $require_prefix . 'settings-page.php';

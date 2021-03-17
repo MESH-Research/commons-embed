@@ -19,9 +19,9 @@ add_action( 'admin_menu', __NAMESPACE__ . '\settings_page' );
  * Adds settings options as an object.
  */
 function add_options() {
-	$fem_options              = new stdClass();
-	$fem_options->base_url    = '';
-	$fem_options->block_title = 'Fedora Embed';
+	$fem_options             = [];
+	$fem_options['base_url'] = '';
+	add_option( FEM_PREFIX . 'options', $fem_options );
 }
 
 /**
@@ -43,23 +43,10 @@ function settings_init() {
 	add_settings_field(
 		FEM_PREFIX . 'field-base-url',
 		__( 'Repository base URL', 'fedora-embed' ),
-		__NAMESPACE__ . 'field_base_url_callback',
+		__NAMESPACE__ . '\field_base_url_callback',
 		FEM_PREFIX . 'options',
 		FEM_PREFIX . 'options-section',
 		[
-			'label_for' => FEM_PREFIX . 'field-base-url',
-			'class'     => FEM_PREFIX . 'settings-row',
-		]
-	);
-
-	add_settings_field(
-		FEM_PREFIX . 'field-block-title',
-		__( 'Title for block in block inserter', 'fedora-embed' ),
-		__NAMESPACE__ . 'field_block_title_callback',
-		FEM_PREFIX . 'options',
-		FEM_PREFIX . 'options-section',
-		[
-			'label_for' => FEM_PREFIX . 'field-block-title',
 			'class'     => FEM_PREFIX . 'settings-row',
 		]
 	);
@@ -91,11 +78,6 @@ function settings_page_html() {
 		return;
 	}
 
-	if ( isset( $_GET['settings-updated'] ) ) {
-		add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'fedora-embed' ), 'updated' );
-	}
-	settings_errors( 'wporg_messages' );
-
 	?>
 	<div class="wrap">
 		<h1><?= esc_html( get_admin_page_title() ); ?></h1>
@@ -116,23 +98,23 @@ function settings_page_html() {
  * @param Array $args Section settings.
  */
 function fedora_options_section_callback( $args ) {
-
+	?>
+	<p id="<?= esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Options', 'fedora-embed' ); ?></p>
+	<?php
 }
 
 /**
  * Displays and processes form field for base_url option.
- *
- * @param Array $args Option settings.
  */
-function field_base_url_callback( $args ) {
-
-}
-
-/**
- * Displays and processes form field for block_title option.
- *
- * @param Array $args Option settings.
- */
-function field_block_title_callback( $args ) {
-
+function field_base_url_callback() {
+	$fem_options = get_option( FEM_PREFIX . 'options' );
+	?>
+	<input
+		type="text"
+		name="<?= esc_attr( FEM_PREFIX . 'options' ) ?>[base_url]"
+		id="<?= esc_attr( FEM_PREFIX . 'options' ) ?>[base_url]"
+		value="<?= isset( $fem_options ) ? esc_attr( $fem_options['base_url'] ) : ''; ?>"
+		style="width:25em;"
+	>
+	<?php
 }
