@@ -40,6 +40,7 @@ if ( DEV_BUILD ) {
 }
 
 require_once $require_prefix . 'settings-page.php';
+require_once $require_prefix . 'blocks/blocks.php';
 
 // Adds setting options.
 add_options();

@@ -47,7 +47,7 @@ function settings_init() {
 		FEM_PREFIX . 'options',
 		FEM_PREFIX . 'options-section',
 		[
-			'class'     => FEM_PREFIX . 'settings-row',
+			'class' => FEM_PREFIX . 'settings-row',
 		]
 	);
 }
