@@ -17,7 +17,7 @@
  */
 import edit from './edit';
 
-registerBlockType( 'fedora-embed', {
+registerBlockType( 'fedora-embed/fedora-embed', {
 	title    : __( 'Fedora Embed', 'fedora-embed' ),
 	caregory : 'embed',
 	edit,

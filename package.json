@@ -4,9 +4,9 @@
   "description": "Embeds items stored in Fedora repositories in WordPress.",
   "main": "index.js",
   "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1",
-	"build": "wp-scripts build /src/blocks/src/index.js /src/blocks/src/frontend.js --output-path=src/blocks/build",
-	"start": "wp-scripts start /src/blocks/src/index.js /src/blocks/src/frontend.js --output-path=src/blocks/build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "wp-scripts build /src/blocks/src/index.js /src/blocks/src/frontend.js --output-path=src/blocks/build",
+    "start": "wp-scripts start /src/blocks/src/index.js /src/blocks/src/frontend.js --output-path=src/blocks/build"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,12 @@
     "@wordpress/scripts": "^14.0.0"
   },
   "dependencies": {
+    "@wordpress/api-fetch": "^3.22.0",
     "@wordpress/block-editor": "^5.3.0",
     "@wordpress/blocks": "^8.0.0",
     "@wordpress/components": "^13.0.0",
     "@wordpress/element": "^2.20.0",
-    "@wordpress/i18n": "^3.19.0"
+    "@wordpress/i18n": "^3.19.0",
+    "xml-js": "^1.6.11"
   }
 }

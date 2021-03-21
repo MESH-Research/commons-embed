@@ -1,0 +1,46 @@
+.fem-edit-search-wrapper {
+	border-style: solid;
+	border-radius: 5px;
+	border-width: 1px;
+	border-color: grey;
+	padding: 1em;
+
+	.fem-edit-search-instructions {
+		font-style: italic;
+		margin-top: 0;
+		margin-bottom: 0.5em;
+	}
+
+	.fem-edit-search {
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 1em;
+
+		.components-base-control {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+
+		.fem-edit-search-fields-select {
+			flex-basis: 20%;
+			flex-grow: 1;
+		}
+
+		.fem-edit-search-comparator-select {
+			flex-basis: 20%;
+			flex-grow: 1;
+		}
+
+		.fem-edit-search-input {
+			flex-basis: 60%;
+			flex-shrink: 1;
+		}
+	}
+}
+
+.fem-repository-object-list-edit {
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 1em;
+	margin-top: 0.5em;
+}
