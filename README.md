@@ -13,7 +13,7 @@ This software is in active development.
 
 ## What it Does
 
-View a live demo here: [mikethicke.com/fedora-embed-demo](mikethicke.com/fedora-embed-demo)
+View a live demo here: [mikethicke.com/fedora-embed-demo](http://mikethicke.com/fedora-embed-demo)
 
 One of the best ways for academics to increase the reach of their publications
 is to upload preprints or open access publications of their work to public
@@ -56,7 +56,7 @@ Here is how it looks to your visitors:
 
 1. While the plugin is ultimately intended to function on any Fedora-based repository, it has been developed for and exclusively tested on Humanities Commons. It is not currently expected to function with other repositories. If there is a repository you'd like to use this plugin with, please open an issue.
 2. To query the remote repository, the plugin relies on the [SimpleXML](https://www.php.net/manual/en/book.simplexml.php) PHP package. This package is standard with PHP 5.6, but is not included in many PHP 7+ distributions. If you are unable to generate any search results, ensure that this package is installed (the plugin does not yet explicitly test for the package; it will just fail silently).
-3. The plugin naively passes search parameters to the repository's REST API and displays the results. Fedora's API is very finicky about delivering search results. In particular, the 'EQUALS' comparator does not work *ever* with many fields. If your search fails, try the 'CONTAINS' parameter.
+3. The plugin naively passes search parameters to the repository's REST API and displays the results. Fedora's API is very finicky about delivering search results. In particular, the 'EQUALS' comparator does not work *ever* with many fields. If your search fails, try the 'CONTAINS' comparator.
 4. It is currently not possible to search CORE for your Humanities Commons username, so if you share a full name with another user, there is no way to disambiguate between your works and theirs. This is a limitation of the CORE repository. If you are having a problem with name collisions, I suggest naming the files you upload with a unique prefix and searching for that prefix in the 'label' field.
 5. The plugin will display all search results from your query, so it is possible that another user could upload work that matches your query (either inadvertently or maliciously), and this work will be displayed on your website.
 
