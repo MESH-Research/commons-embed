@@ -36,16 +36,16 @@ const FedoraEmbedEdit = props => {
 	const [ editSearch, setEditSearch ] = useState( false );
 
 	useEffect( () => {
-		if ( searchValues.length === 0 ) {
+		if ( baseURL && searchValues.length === 0 ) {
 			setAttributes( {
 				searchValues: JSON.stringify( [
-					{ field: fields[0], searchText: '', comparator: comparatorOptions[0].value },
-					{ field: fields[0], searchText: '', comparator: comparatorOptions[0].value },
-					{ field: fields[0], searchText: '', comparator: comparatorOptions[0].value }
+					{ field: '', searchText: '', comparator: '' },
+					{ field: '', searchText: '', comparator: '' },
+					{ field: '', searchText: '', comparator: '' }
 				] )
 			} );
 		}
-	}, [] );
+	 }, [ baseURL ] );
 
 	const urlInput = useRef( null );
 
@@ -136,9 +136,15 @@ const FedoraEmbedEdit = props => {
 
 		const searchFields = [];
 		for ( let row = 0; row < 3; row++ ) {
-			const selectedField = searchValues[ row ] ? searchValues[ row ].field      : fields[0];
-			const searchText    = searchValues[ row ] ? searchValues[ row ].searchText : '';
-			const comparator    = searchValues[ row ] ? searchValues[ row ].comparator : comparatorOptions[0].value;
+			const selectedField = searchValues[ row ] && searchValues[ row ].field ? 
+				searchValues[ row ].field :
+				fields[0];
+			const searchText = searchValues[ row ] ?
+				searchValues[ row ].searchText :
+				'';
+			const comparator = searchValues[ row ] && searchValues[ row ].comparator ?
+				searchValues[ row ].comparator :
+				comparatorOptions[0].value;
 			searchFields[ row ] = (
 				<div className = 'fem-edit-search'
 					key = { row }

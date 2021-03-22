@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION_NUMBER=$(sed -n "s/\* Version: \(.*\)$/\1/p" ./fedora-embed | tr -d '[:space:]')
+VERSION_NUMBER=$(sed -n "s/\* Version: \(.*\)$/\1/p" ./fedora-embed.php | tr -d '[:space:]')
 BASE_RELEASE_DIR="./release"
 SUB_RELEASE_DIR="fedora-embed-${VERSION_NUMBER}"
 RELEASE_DIR="${BASE_RELEASE_DIR}/${SUB_RELEASE_DIR}"
