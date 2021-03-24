@@ -1,4 +1,8 @@
 /**
+ * Class representing a remote Fedora-based repository.
+ */
+
+/**
  * WordPress dependencies.
  */
 import apiFetch from '@wordpress/api-fetch';
@@ -8,10 +12,20 @@ import apiFetch from '@wordpress/api-fetch';
  */
 import parser from 'xml-js';
 
+/**
+ * Represents a remote Fedora-based repository.
+ *
+ * Intended to be a general wrapper for the Fedora API, but currently
+ * ideosyncratic to the Humanities Commons CORE API, as many of its endpoints
+ * are locked down and so cannot organically discover URLs of datastreams, etc.
+ *
+ * @link https://wiki.lyrasis.org/display/FEDORA38/REST+API
+ */
 export default class FedoraRepository {
 	constructor( baseURL ) {
 		this.baseURL = baseURL;
 
+		// Descriptions based on field descriptions of Fedora API.
 		this.searchResultSchema = {
 			pid : {
 				description: 'Fedora persistent identifier',
@@ -186,15 +200,22 @@ export default class FedoraRepository {
 		return queryString;
 	}
 
-	static parseXMLResponse( response ) {
-		const parsedResponse = JSON.parse( parser.xml2json( response ) );
-		return parsedResponse;
-	}
-
+	/**
+	 * Returns a list of fields based on the results schema.
+	 */
 	getFieldList() {
 		return Object.keys( this.searchResultSchema );
 	}
 
+	/**
+	 * Find objects in the repository. Corresponds to the /objects endpoint of
+	 * the Fedora API.
+	 *
+	 * @link https://wiki.lyrasis.org/display/FEDORA38/REST+API#RESTAPI-findObjects
+	 *
+	 * @param Object searchParameters Each object key corresponds to a search
+	 * parameter and the value is the value of that parameter for the search. 
+	 */
 	findObjects( searchParameters ) {
 		const fields = this.getFieldList();
 		const parameterDefaults = fields.reduce( ( params, field ) => {
@@ -224,8 +245,8 @@ export default class FedoraRepository {
 				return paramString;
 		}, '' );
 
-		const fetchAddress = `${ this.baseURL }objects/?${ parameterString }`;
-
+		// Humanities Commons doesn't allow cross-origin requests, so need to
+		// make the request server-side, using the WordPress REST API.
 		return apiFetch( { 
 			path: '/fem-embed/v1/find',
 			method: 'POST',
@@ -235,6 +256,14 @@ export default class FedoraRepository {
 		} );
 	}
 
+	/**
+	 * Gets data for a particular Humanities Commons item.
+	 *
+	 * Corresponds to the objects/<pid>/datastreams/descMetadata/content
+	 * endpoint of the Humanities Commons API.
+	 *
+	 * @param string pid The Persistent Identifier of the object. On HC, in the form HC:#####
+	 */
 	getItemData( pid ) {
 		return apiFetch( { 
 			path: '/fem-embed/v1/item',

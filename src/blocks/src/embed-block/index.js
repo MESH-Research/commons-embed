@@ -17,6 +17,9 @@
  */
 import edit from './edit';
 
+/**
+ * Registers the block.
+ */
 registerBlockType( 'fedora-embed/fedora-embed', {
 	title    : __( 'Fedora Embed', 'fedora-embed' ),
 	caregory : 'embed',

@@ -1,3 +1,10 @@
+/**
+ * A list of repository objects.
+ */
+
+/**
+ * Internal dependencies
+ */
 import RepositoryObject from './repository-object';
 
 const RepositoryObjectList = props => {
@@ -6,6 +13,11 @@ const RepositoryObjectList = props => {
 		objectsData
 	} = props;
 
+	/**
+	 * The Fedora API ( or the simpleXML parsed XML anyways ) returns unique
+	 * results as simply the resultant object, while multiple results are in an
+	 * array.
+	 */
 	let objectArray = [];
 	if ( Array.isArray( objectsData.resultList.objectFields ) ) {
 		objectArray = objectsData.resultList.objectFields;

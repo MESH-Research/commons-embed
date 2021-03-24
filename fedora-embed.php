@@ -8,7 +8,7 @@
  * @wordpress-plugin
  * Plugin Name: Fedora Embed
  * Description: Embeds items stored in Fedora repositories in WordPress.
- * Version: 0.1.1
+ * Version: 0.2.0
  * Author: Mike Thicke
  * Author URI: http://www.mikethicke.com
  * Text Domain: fedora-embed

@@ -1,3 +1,6 @@
+/**
+ * A single repository object.
+ */
 
 /**
  * WordPress dependencies
@@ -33,6 +36,14 @@ const RepositoryObject = props => {
 		setAbstractVisible( ! abstractVisible );
 	}
 
+	/**
+	 * Queries the Humanities Commons API for additional item data. Each object
+	 * has two entries in CORE, with sequential pids. Searching the API yields
+	 * one pid, which does not contain all of the bibliographic data, but does
+	 * have the pid of the other entry, which does. This queries the API for
+	 * the other entry, which contains detailed bibliographic data such as
+	 * journal name and DOI.
+	 */
 	useEffect( () => {
 		if ( ! itemData && objectData && objectData.identifier && Array.isArray( objectData.identifier ) ) {
 			const itemID = objectData.identifier.find( ( id ) => id !== objectData.pid );
@@ -45,6 +56,9 @@ const RepositoryObject = props => {
 		}
 	}, [] );
 
+	/**
+	 * Render a placeholder if data has not yet been fetched from API.
+	 */
 	if ( ! objectData || ! itemData ) {
 		return (
 			<div className = 'fem-object'>

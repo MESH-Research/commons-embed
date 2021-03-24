@@ -1,3 +1,6 @@
+/**
+ * Block editor view of the block.
+ */
 
 /**
  * WordPress dependencies
@@ -19,6 +22,9 @@ import {
 import FedoraRepository from '../class-fedora-repository';
 import RepositoryObjectList from '../components/repository-object-list';
 
+/**
+ * Block editor view of the block.
+ */
 const FedoraEmbedEdit = props => {
 	const {
 		attributes,
@@ -34,6 +40,7 @@ const FedoraEmbedEdit = props => {
 
 	const [ searchResults, setSearchResults ] = useState( null );
 	const [ editSearch, setEditSearch ] = useState( false );
+	const [ newBaseURL, setNewBaseURL ] = useState( '' );
 
 	useEffect( () => {
 		if ( baseURL && searchValues.length === 0 ) {
@@ -47,11 +54,21 @@ const FedoraEmbedEdit = props => {
 		}
 	 }, [ baseURL ] );
 
+	 useEffect( () => {
+		if ( baseURL ) { 
+			setAttributes( { baseURL: cleanUrl( baseURL ) } );
+		}
+	 } );
+
 	const urlInput = useRef( null );
 
+	/**
+	 * Formats the URL consistently, with appropriate http prefix and trailing
+	 * '/'.
+	 */
 	const cleanUrl = ( newUrl ) => {
 		let cleanedUrl = newUrl.trim();
-		cleanedUrl = cleanedUrl.endsWith('/') ? cleanedUrl.slice(0, -1 ) : cleanedUrl;
+		cleanedUrl = cleanedUrl.endsWith('/') ? cleanedUrl : cleanedUrl + '/';
 		cleanedUrl = cleanedUrl
 			.startsWith('http://') || cleanedUrl.startsWith('https://' ) ?
 			cleanedUrl :
@@ -60,7 +77,7 @@ const FedoraEmbedEdit = props => {
 	}
 
 	const onUrlChange = event => {
-		setAttributes( { baseURL: event.target.value } );
+		setNewBaseURL ( event.target.value );
 	}
 
 	const maybeSaveUrl = event => {
@@ -72,8 +89,10 @@ const FedoraEmbedEdit = props => {
 	}
 
 	const saveUrl = () => {
-		const cleanedUrl = cleanUrl( baseURL );
-		setAttributes( { baseURL: cleanedUrl } );
+		if ( newBaseURL ) {
+			const cleanedUrl = cleanUrl( newBaseURL );
+			setAttributes( { baseURL: cleanedUrl } );
+		}
 	}
 
 	let blockContent = '';
@@ -104,6 +123,16 @@ const FedoraEmbedEdit = props => {
 		repository.findObjects( searchParameters ).then( results => setSearchResults( results ) );
 	}
 
+	/**
+	 * Renders block content based on three possible states:
+	 * 
+	 * (1) There are search results to display and the user has not clicked 'Edit Search'
+	 *      -> display search results
+	 * (2) Not (1), but baseURL is set, either in settings page or in block.
+	 *      -> display search form
+	 * (3) baseURL is not set
+	 *      -> display baseURL form
+	 */
 	if ( searchResults && ! editSearch ) {
 		blockContent = (
 			<>
@@ -184,22 +213,30 @@ const FedoraEmbedEdit = props => {
 		);
 	} else {
 		blockContent = (
-			<div>
-				<input
-					type        = 'url'
-					ref         = { urlInput }
-					placeholder = 'http://example.com'
-					pattern     = "https?:\/\/.*"
-					onChange    = { onUrlChange }
-					onKeyDown   = { maybeSaveUrl }
-					value       = { remoteData.url }
-				/>
-				<Button
-					isPrimary
-					onClick = { saveUrl }
-				>
-					Save
-				</Button>
+			<div className = 'fem-edit-search-wrapper'>
+				<div className = 'fem-edit-url-form'>
+					<div>
+						Enter Base URL for the remote repository.
+					</div>
+					<div>
+						<input
+							type        = 'url'
+							ref         = { urlInput }
+							placeholder = 'http://example.com'
+							pattern     = "https?:\/\/.*"
+							onChange    = { onUrlChange }
+							onKeyDown   = { maybeSaveUrl }
+							value       = { newBaseURL }
+						/>
+						<Button
+							className = 'fem-edit-url-form-save-button'
+							isPrimary
+							onClick = { saveUrl }
+						>
+							Save
+						</Button>
+					</div>
+				</div>
 			</div>
 		);
 	}

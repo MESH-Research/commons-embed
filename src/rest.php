@@ -69,7 +69,8 @@ function rest_find_callback( $request ) {
 	$fem_options = get_option( FEM_PREFIX . 'options' );
 	if ( $fem_options ) {
 		$base_url = $fem_options['base_url'];
-	} else {
+	}
+	if ( ! $base_url ) {
 		$base_url = $request->get_param( 'baseURL' );
 	}
 	$base_url = esc_url_raw( $base_url );
@@ -95,7 +96,8 @@ function rest_item_callback( $request ) {
 	$fem_options = get_option( FEM_PREFIX . 'options' );
 	if ( $fem_options ) {
 		$base_url = $fem_options['base_url'];
-	} else {
+	}
+	if ( ! $base_url ) {
 		$base_url = $request->get_param( 'baseURL' );
 	}
 	$base_url = esc_url_raw( $base_url );

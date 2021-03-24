@@ -15,8 +15,15 @@ import {
 
 import './style.scss';
 
+/**
+ * Render Fedora Embed blocks.
+ *
+ * Render callback ( @see blocks.php ) outputs <div> elements with
+ * 'fem-embed-block-frontend' class and JSON-encoded attributes. Find each of
+ * those <div>s in the page and render the frontend view of the block in them.
+ */
 const embedBlockElements = document.getElementsByClassName('fem-embed-block-frontend');
-if ( !! embedBlockElements ) {
+if ( embedBlockElements ) {
 	for ( let i = 0; i < embedBlockElements.length; i++ ) {
 		const embedBlockElement = embedBlockElements[i];
 		const attributes = attributesFromJSON( embedBlockElement.dataset.attributes );

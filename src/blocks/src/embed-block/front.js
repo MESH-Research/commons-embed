@@ -1,4 +1,8 @@
 /**
+ * Frontend view of the block.
+ */
+
+/**
  * WordPress dependencies
  */
 import {
@@ -40,7 +44,7 @@ const FedoraEmbedFront = props => {
 				/>
 			}
 		</div>
-	)
+	);
 }
 
 export default FedoraEmbedFront;
