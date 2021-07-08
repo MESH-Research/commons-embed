@@ -15,7 +15,7 @@ import {
 import RepositoryObjectList from '../components/repository-object-list';
 import FedoraRepository from '../class-fedora-repository';
 
-const FedoraEmbedFront = props => {
+const CommonsEmbedFront = props => {
 	const {
 		attributes
 	} = props;
@@ -47,4 +47,4 @@ const FedoraEmbedFront = props => {
 	);
 }
 
-export default FedoraEmbedFront;
+export default CommonsEmbedFront;

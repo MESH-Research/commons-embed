@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="FEDORAEMBED">
+<ruleset name="CommonsEmbed">
     <config name="minimum_supported_wp_version" value="5.0.0" />
 
     <rule ref="WordPress-Core" />

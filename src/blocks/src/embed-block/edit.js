@@ -25,7 +25,7 @@ import RepositoryObjectList from '../components/repository-object-list';
 /**
  * Block editor view of the block.
  */
-const FedoraEmbedEdit = props => {
+const CommonsEmbedEdit = props => {
 	const {
 		attributes,
 		setAttributes
@@ -248,4 +248,4 @@ const FedoraEmbedEdit = props => {
 	);
 }
 
-export default FedoraEmbedEdit;
+export default CommonsEmbedEdit;

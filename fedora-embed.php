@@ -1,22 +1,22 @@
 <?php
 /**
- * Fedora Embed
+ * Commons Embed
  *
- * @package MikeThicke\FedoraEmbed
+ * @package MESHResearch\CommonsEmbed
  * @author Mike Thicke
  *
  * @wordpress-plugin
- * Plugin Name: Fedora Embed
- * Description: Embeds items stored in Fedora repositories in WordPress.
+ * Plugin Name: Commons Embed
+ * Description: Embeds items stored in Commons repositories in WordPress.
  * Version: 0.2.0
  * Author: Mike Thicke
  * Author URI: http://www.mikethicke.com
- * Text Domain: fedora-embed
+ * Text Domain: commons-embed
  */
 
-namespace MikeThicke\FedoraEmbed;
+namespace MESHResearch\CommonsEmbed;
 
-const FEM_PREFIX = 'fem_'; // prefix for options, etc.
+const CEM_PREFIX = 'cem_'; // prefix for options, etc.
 
 const DEV_BUILD = true;
 

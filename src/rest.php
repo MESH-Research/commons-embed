@@ -2,10 +2,10 @@
 /**
  * Adds a REST endpoint that makes requests to the Fedora API and returns the result.
  *
- * @package MikeThicke\FedoraEmbed
+ * @package MikeThicke\CommonsEmbed
  */
 
-namespace MikeThicke\FedoraEmbed;
+namespace MESHResearch\CommonsEmbed;
 
 /**
  * Actions
@@ -21,7 +21,7 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_rest' );
  */
 function register_rest() {
 	register_rest_route(
-		'fem-embed/v1',
+		'cem-embed/v1',
 		'/find',
 		[
 			[
@@ -33,7 +33,7 @@ function register_rest() {
 	);
 
 	register_rest_route(
-		'fem-embed/v1',
+		'cem-embed/v1',
 		'/item',
 		[
 			[
@@ -66,7 +66,7 @@ function rest_public_permissions_check() {
  * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
  */
 function rest_find_callback( $request ) {
-	$fem_options = get_option( FEM_PREFIX . 'options' );
+	$fem_options = get_option( CEM_PREFIX . 'options' );
 	if ( $fem_options ) {
 		$base_url = $fem_options['base_url'];
 	}
@@ -93,7 +93,7 @@ function rest_find_callback( $request ) {
  * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
  */
 function rest_item_callback( $request ) {
-	$fem_options = get_option( FEM_PREFIX . 'options' );
+	$fem_options = get_option( CEM_PREFIX . 'options' );
 	if ( $fem_options ) {
 		$base_url = $fem_options['base_url'];
 	}
