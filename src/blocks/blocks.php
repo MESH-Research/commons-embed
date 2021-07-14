@@ -5,7 +5,7 @@
  * @package MikeThicke\WordPress
  */
 
-namespace MESHResearch\CommonsEmbed;
+namespace MESHResearch\CommonsConnect;
 
 /**
  * Actions
@@ -18,14 +18,14 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_frontend_scrip
  * Registers the Fedora Embed block.
  */
 function register_embed_block() {
-	$fem_options = get_option( CEM_PREFIX . 'options' );
+	$CC_options = get_option( CC_PREFIX . 'options' );
 	register_block_type(
 		'fedora-embed/fedora-embed',
 		[
 			'render_callback' => __NAMESPACE__ . '\render_fedora_embed_block',
 			'attributes'      => [
 				'baseURL'      => [
-					'default' => $fem_options['base_url'],
+					'default' => $CC_options['base_url'],
 					'type'    => 'string',
 				],
 				'searchValues' => [
@@ -69,20 +69,20 @@ function enqueue_block_scripts() {
 	}
 
 	wp_enqueue_script(
-		CEM_PREFIX . 'blocks',
+		CC_PREFIX . 'blocks',
 		plugins_url( $block_path . 'index.js', __FILE__ ),
 		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor', 'wp-api-fetch' ],
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path . 'index.js' ),
 		true
 	);
 	wp_enqueue_style(
-		CEM_PREFIX . 'block-style-front',
+		CC_PREFIX . 'block-style-front',
 		plugins_url( $block_path . 'style-frontend.css', __FILE__ ),
 		[],
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path . 'style-frontend.css' )
 	);
 	wp_enqueue_style(
-		CEM_PREFIX . 'block-style-editor',
+		CC_PREFIX . 'block-style-editor',
 		plugins_url( $block_path . 'index.css', __FILE__ ),
 		[],
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path . 'index.css' )
@@ -108,14 +108,14 @@ function enqueue_block_frontend_scripts() {
 	}
 
 	wp_enqueue_script(
-		CEM_PREFIX . 'blocks',
+		CC_PREFIX . 'blocks',
 		plugins_url( $block_path . 'frontend.js', __FILE__ ),
 		[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api-fetch' ],
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path . 'frontend.js' ),
 		true
 	);
 	wp_enqueue_style(
-		CEM_PREFIX . 'block-style-front',
+		CC_PREFIX . 'block-style-front',
 		plugins_url( $block_path . 'style-frontend.css', __FILE__ ),
 		[],
 		filemtime( plugin_dir_path( __FILE__ ) . $block_path . 'style-frontend.css' )

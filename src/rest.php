@@ -2,10 +2,10 @@
 /**
  * Adds a REST endpoint that makes requests to the Fedora API and returns the result.
  *
- * @package MikeThicke\CommonsEmbed
+ * @package MESHResearch\CommonsEmbed
  */
 
-namespace MESHResearch\CommonsEmbed;
+namespace MESHResearch\CommonsConnect;
 
 /**
  * Actions
@@ -21,7 +21,7 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_rest' );
  */
 function register_rest() {
 	register_rest_route(
-		'cem-embed/v1',
+		'commons-connect/v1',
 		'/find',
 		[
 			[
@@ -33,7 +33,7 @@ function register_rest() {
 	);
 
 	register_rest_route(
-		'cem-embed/v1',
+		'commons-connect/v1',
 		'/item',
 		[
 			[
@@ -66,9 +66,9 @@ function rest_public_permissions_check() {
  * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
  */
 function rest_find_callback( $request ) {
-	$fem_options = get_option( CEM_PREFIX . 'options' );
-	if ( $fem_options ) {
-		$base_url = $fem_options['base_url'];
+	$CC_options = get_option( CC_PREFIX . 'options' );
+	if ( $CC_options ) {
+		$base_url = $CC_options['base_url'];
 	}
 	if ( ! $base_url ) {
 		$base_url = $request->get_param( 'baseURL' );
@@ -93,9 +93,9 @@ function rest_find_callback( $request ) {
  * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
  */
 function rest_item_callback( $request ) {
-	$fem_options = get_option( CEM_PREFIX . 'options' );
-	if ( $fem_options ) {
-		$base_url = $fem_options['base_url'];
+	$CC_options = get_option( CC_PREFIX . 'options' );
+	if ( $CC_options ) {
+		$base_url = $CC_options['base_url'];
 	}
 	if ( ! $base_url ) {
 		$base_url = $request->get_param( 'baseURL' );

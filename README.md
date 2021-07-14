@@ -1,6 +1,6 @@
-# Commons Embed
+# Commons Connect
 
-Commons Embed is a WordPress single-block plugin for embedding items from
+Commons Connect is a WordPress single-block plugin for embedding items from
 the [Humanities Commons CORE](https://hcommons.org/core/) repostory in WordPress posts and
 pages.
 
@@ -25,10 +25,10 @@ Here is how it looks to your visitors:
 
 ## Usage
 
-1. Set the base URL of the repository on the Settings|Commons Embed page in the
+1. Set the base URL of the repository on the Settings|Commons Connect page in the
    WordPress dashboard. For Humanities Commons CORE, the base URL is https://hcommons.org/deposits/ .
 2. Add or edit a page or post with the WordPress block editor (the classic editor is not currently supported).
-3. Using the block inserter ( type '/' or click the + icon), insert a Commons Embed block. You should see something like this:
+3. Using the block inserter ( type '/' or click the + icon), insert a Commons Connect block. You should see something like this:
 
 ![Search form](docs/assets/fem-search-form.png)
 
@@ -37,13 +37,13 @@ Here is how it looks to your visitors:
    plugin, showing those results. You can click 'Edit Search' to return to the
    search form.
 5. Add whatever other content you'd like to the page. You can also add multiple
-   Commons Embed blocks, for example to have one section for articles and
+   Commons Connect blocks, for example to have one section for articles and
    another for book reviews.
 6. Publish your post. That's it!
 
 ## Installation
 
-1. Download the [latest release](https://github.com/MESH-Research/commons-embed/releases) from GitHub.
+1. Download the [latest release](https://github.com/MESH-Research/commons-connect/releases) from GitHub.
 2. Install and activate the plugin through the WordPress dashboard ( Plugins | Add New -> Upload Plugin ).
 
 ## Notes and Limitations
@@ -57,7 +57,7 @@ Here is how it looks to your visitors:
 
 If you wish to contribute to the project, you can contact me at [thickemi@msu.edu](mailto:thickemi@msu.edu), or [submit a pull request](https://github.com/mikethicke/fedora-embed/pulls) with your proposed changes.
 
-If you find a bug or want to request a feature, you can [create a new issue](https://github.com/MESH-Research/commons-embed/issues).
+If you find a bug or want to request a feature, you can [create a new issue](https://github.com/MESH-Research/commons-connect/issues).
 
 ## Requirements
 
@@ -66,5 +66,5 @@ If you find a bug or want to request a feature, you can [create a new issue](htt
 
 ## Acknowledgments
 
-Commons Embed uses the vivid [SVG File Icons](https://fileicons.org/) generously provided by Daniel M. Hendricks.
+Commons Connect uses the vivid [SVG File Icons](https://fileicons.org/) generously provided by Daniel M. Hendricks.
 

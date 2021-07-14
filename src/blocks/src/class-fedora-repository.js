@@ -248,7 +248,7 @@ export default class FedoraRepository {
 		// Humanities Commons doesn't allow cross-origin requests, so need to
 		// make the request server-side, using the WordPress REST API.
 		return apiFetch( { 
-			path: '/cem-embed/v1/find',
+			path: '/commons-connect/v1/find',
 			method: 'POST',
 			data: { baseURL: this.baseURL, parameterString: parameterString } 
 		} ).then( result => { 
@@ -266,7 +266,7 @@ export default class FedoraRepository {
 	 */
 	getItemData( pid ) {
 		return apiFetch( { 
-			path: '/cem-embed/v1/item',
+			path: '/commons-connect/v1/item',
 			method: 'POST',
 			data: { baseURL: this.baseURL, pid: pid } 
 		} ).then( result => { 

@@ -1,22 +1,22 @@
 <?php
 /**
- * Commons Embed
+ * Commons Connect
  *
- * @package MESHResearch\CommonsEmbed
+ * @package MESHResearch\CommonsConnect
  * @author Mike Thicke
  *
  * @wordpress-plugin
- * Plugin Name: Commons Embed
- * Description: Embeds items stored in Commons repositories in WordPress.
- * Version: 0.2.0
+ * Plugin Name: Commons Connect
+ * Description: A suite of plugins that allows WordPress sites to embed content from Humanities Commons.
+ * Version: 0.3.0
  * Author: Mike Thicke
  * Author URI: http://www.mikethicke.com
- * Text Domain: commons-embed
+ * Text Domain: commons-connect
  */
 
-namespace MESHResearch\CommonsEmbed;
+namespace MESHResearch\CommonsConnect;
 
-const CEM_PREFIX = 'cem_'; // prefix for options, etc.
+const CC_PREFIX = 'mcc_'; // prefix for options, etc.
 
 const DEV_BUILD = true;
 
@@ -29,9 +29,9 @@ if ( DEV_BUILD ) {
 }
 
 if ( DEV_BUILD ) {
-	define( 'FEM_BASE_URL', plugin_dir_url( __FILE__ ) . 'src/' );
+	define( 'CC_BASE_URL', plugin_dir_url( __FILE__ ) . 'src/' );
 } else {
-	define( 'FEM_BASE_URL', plugin_dir_url( __FILE__ ) );
+	define( 'CC_BASE_URL', plugin_dir_url( __FILE__ ) );
 }
 
 if ( DEV_BUILD ) {

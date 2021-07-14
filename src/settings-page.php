@@ -4,10 +4,10 @@
  *
  * @link https://developer.wordpress.org/plugins/settings/custom-settings-page/
  *
- * @package MikeThicke\CommonsEmbed
+ * @package MESHResearch\CommonsEmbed
  */
 
-namespace MESHResearch\CommonsEmbed;
+namespace MESHResearch\CommonsConnect;
 
 /**
  * Actions
@@ -19,9 +19,9 @@ add_action( 'admin_menu', __NAMESPACE__ . '\settings_page' );
  * Adds settings options as an object.
  */
 function add_options() {
-	$fem_options             = [];
-	$fem_options['base_url'] = '';
-	add_option( CEM_PREFIX . 'options', $fem_options );
+	$CC_options             = [];
+	$CC_options['base_url'] = '';
+	add_option( CC_PREFIX . 'options', $CC_options );
 }
 
 /**
@@ -29,25 +29,25 @@ function add_options() {
  */
 function settings_init() {
 	register_setting(
-		CEM_PREFIX . 'options',
-		CEM_PREFIX . 'options'
+		CC_PREFIX . 'options',
+		CC_PREFIX . 'options'
 	);
 
 	add_settings_section(
-		CEM_PREFIX . 'options-section',
+		CC_PREFIX . 'options-section',
 		__( 'Options', 'fedora-embed' ),
-		__NAMESPACE__ . 'fem_options_section_callback',
-		CEM_PREFIX . 'options'
+		__NAMESPACE__ . 'CC_options_section_callback',
+		CC_PREFIX . 'options'
 	);
 
 	add_settings_field(
-		CEM_PREFIX . 'field-base-url',
+		CC_PREFIX . 'field-base-url',
 		__( 'Repository base URL', 'fedora-embed' ),
 		__NAMESPACE__ . '\field_base_url_callback',
-		CEM_PREFIX . 'options',
-		CEM_PREFIX . 'options-section',
+		CC_PREFIX . 'options',
+		CC_PREFIX . 'options-section',
 		[
-			'class' => CEM_PREFIX . 'settings-row',
+			'class' => CC_PREFIX . 'settings-row',
 		]
 	);
 }
@@ -65,7 +65,7 @@ function settings_page() {
 		'Fedora Embed',
 		'Fedora Embed',
 		'manage_options',
-		CEM_PREFIX . 'settings_page',
+		CC_PREFIX . 'settings_page',
 		__NAMESPACE__ . '\settings_page_html'
 	);
 }
@@ -83,8 +83,8 @@ function settings_page_html() {
 		<h1><?= esc_html( get_admin_page_title() ); ?></h1>
 		<form action="options.php" method="post">
 			<?php
-			settings_fields( CEM_PREFIX . 'options' );
-			do_settings_sections( CEM_PREFIX . 'options' );
+			settings_fields( CC_PREFIX . 'options' );
+			do_settings_sections( CC_PREFIX . 'options' );
 			submit_button( 'Save Settings' );
 			?>
 		</form>
@@ -107,13 +107,13 @@ function fedora_options_section_callback( $args ) {
  * Displays and processes form field for base_url option.
  */
 function field_base_url_callback() {
-	$fem_options = get_option( CEM_PREFIX . 'options' );
+	$CC_options = get_option( CC_PREFIX . 'options' );
 	?>
 	<input
 		type="text"
-		name="<?= esc_attr( CEM_PREFIX . 'options' ) ?>[base_url]"
-		id="<?= esc_attr( CEM_PREFIX . 'options' ) ?>[base_url]"
-		value="<?= isset( $fem_options ) ? esc_attr( $fem_options['base_url'] ) : ''; ?>"
+		name="<?= esc_attr( CC_PREFIX . 'options' ) ?>[base_url]"
+		id="<?= esc_attr( CC_PREFIX . 'options' ) ?>[base_url]"
+		value="<?= isset( $CC_options ) ? esc_attr( $CC_options['base_url'] ) : ''; ?>"
 		style="width:25em;"
 	>
 	<?php
