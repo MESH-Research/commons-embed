@@ -74,12 +74,6 @@ const RepositoryObject = props => {
 		);
 	}
 
-	// https://hcommons.org/deposits/download/hc:35200/CONTENT/aaa.pdf/
-	const downloadLink = `${baseURL}download/${objectData.pid}/CONTENT/${objectData.label}`;
-
-	// https://hcommons.org/deposits/view/hc:35200/CONTENT/aaa.pdf/
-	const viewLink = `${baseURL}view/${objectData.pid}/CONTENT/${objectData.label}`
-
 	const creatorString = Array.isArray( objectData.creator ) ?
 		objectData.creator.join() :
 		objectData.creator;
@@ -154,8 +148,8 @@ const RepositoryObject = props => {
 			}
 			<div className = 'fem-object-file-links'>
 				{ !! fileIcon && fileIcon }
-				<a href={ downloadLink }>Download</a>
-				<a href={ viewLink }>View</a>
+				<a href={ objectData.download }>Download</a>
+				<a href={ objectData.view }>View</a>
 			</div>
 		</div>
 	);
