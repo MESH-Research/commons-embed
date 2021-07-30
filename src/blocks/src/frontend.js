@@ -8,7 +8,7 @@ import {
 /**
  * Internal dependencies
  */
-import EmbedBlockFront from './embed-block/front';
+import CommonsEmbedFront from './embed-block/front';
 import {
 	attributesFromJSON
 } from './util';
@@ -22,13 +22,13 @@ import './style.scss';
  * 'fem-embed-block-frontend' class and JSON-encoded attributes. Find each of
  * those <div>s in the page and render the frontend view of the block in them.
  */
-const embedBlockElements = document.getElementsByClassName('fem-embed-block-frontend');
+const embedBlockElements = document.getElementsByClassName('core-connect-block-frontend');
 if ( embedBlockElements ) {
 	for ( let i = 0; i < embedBlockElements.length; i++ ) {
 		const embedBlockElement = embedBlockElements[i];
 		const attributes = attributesFromJSON( embedBlockElement.dataset.attributes );
 		render (
-			<EmbedBlockFront
+			<CommonsEmbedFront
 				attributes = { attributes }
 			/>,
 			embedBlockElement

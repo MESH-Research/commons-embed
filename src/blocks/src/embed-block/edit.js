@@ -31,7 +31,6 @@ const CommonsEmbedEdit = props => {
 	} = props;
 
 	const {
-		baseURL,
 		searchValues : searchValuesString
 	} = attributes;
 

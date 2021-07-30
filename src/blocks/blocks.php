@@ -45,11 +45,11 @@ function render_core_connect_block( $attributes ) {
 		return null;
 	}
 
-	$encoded_attributes = wp_wp_json_encode( $attributes );
+	$encoded_attributes = wp_json_encode( $attributes );
 
 	return (
 		"<div 
-			class='fem-embed-block-frontend' 
+			class='core-connect-block-frontend' 
 			data-attributes='$encoded_attributes'
 		>
 		</div>"

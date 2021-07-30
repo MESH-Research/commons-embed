@@ -29,17 +29,15 @@ const CommonsEmbedFront = props => {
 
 	const [ searchResults, setSearchResults ] = useState( null );
 
-	if ( searchValues && baseURL && ! searchResults ) {
+	if ( searchValues && ! searchResults ) {
 		const repository = new RemoteRepository();
-		const searchParameters = { query: searchValues };
-		repository.findObjects( searchParameters ).then( results => setSearchResults( results ) );
+		repository.findObjects( searchValues ).then( results => setSearchResults( results ) );
 	}
 
 	return (
 		<div className = 'fem-embed-block-front'>
 			{ searchResults &&
 				<RepositoryObjectList
-					baseURL     = { baseURL }
 					objectsData = { searchResults }
 				/>
 			}
