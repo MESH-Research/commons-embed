@@ -20,8 +20,8 @@ import edit from './edit';
 /**
  * Registers the block.
  */
-registerBlockType( 'fedora-embed/fedora-embed', {
-	title    : __( 'Fedora Embed', 'fedora-embed' ),
+registerBlockType( 'commons-connect/core-connect', {
+	title    : __( 'Core Connect', 'commons-connect' ),
 	caregory : 'embed',
 	edit,
 	save     : () => null

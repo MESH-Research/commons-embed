@@ -19,9 +19,9 @@ add_action( 'admin_menu', __NAMESPACE__ . '\settings_page' );
  * Adds settings options as an object.
  */
 function add_options() {
-	$CC_options             = [];
-	$CC_options['base_url'] = '';
-	add_option( CC_PREFIX . 'options', $CC_options );
+	$cc_options             = [];
+	$cc_options['base_url'] = '';
+	add_option( CC_PREFIX . 'options', $cc_options );
 }
 
 /**
@@ -35,14 +35,14 @@ function settings_init() {
 
 	add_settings_section(
 		CC_PREFIX . 'options-section',
-		__( 'Options', 'fedora-embed' ),
-		__NAMESPACE__ . 'CC_options_section_callback',
+		__( 'Options', 'commons-connect' ),
+		__NAMESPACE__ . '\options_section_callback',
 		CC_PREFIX . 'options'
 	);
 
 	add_settings_field(
 		CC_PREFIX . 'field-base-url',
-		__( 'Repository base URL', 'fedora-embed' ),
+		__( 'Repository base URL', 'commons-connect' ),
 		__NAMESPACE__ . '\field_base_url_callback',
 		CC_PREFIX . 'options',
 		CC_PREFIX . 'options-section',
@@ -57,13 +57,13 @@ function settings_init() {
  */
 
 /**
- * Adds the Fedora Embed settings page to the settings admin menu.
+ * Adds the Commons Connect settings page to the settings admin menu.
  */
 function settings_page() {
 	add_submenu_page(
 		'options-general.php',
-		'Fedora Embed',
-		'Fedora Embed',
+		'Commons Connect',
+		'Commons Connect',
 		'manage_options',
 		CC_PREFIX . 'settings_page',
 		__NAMESPACE__ . '\settings_page_html'
@@ -94,26 +94,22 @@ function settings_page_html() {
 
 /**
  * Displays options section.
- *
- * @param Array $args Section settings.
  */
-function fedora_options_section_callback( $args ) {
-	?>
-	<p id="<?= esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Options', 'fedora-embed' ); ?></p>
-	<?php
+function options_section_callback() {
+	return null;
 }
 
 /**
  * Displays and processes form field for base_url option.
  */
 function field_base_url_callback() {
-	$CC_options = get_option( CC_PREFIX . 'options' );
+	$cc_options = get_option( CC_PREFIX . 'options' );
 	?>
 	<input
 		type="text"
 		name="<?= esc_attr( CC_PREFIX . 'options' ) ?>[base_url]"
 		id="<?= esc_attr( CC_PREFIX . 'options' ) ?>[base_url]"
-		value="<?= isset( $CC_options ) ? esc_attr( $CC_options['base_url'] ) : ''; ?>"
+		value="<?= isset( $cc_options ) ? esc_attr( $cc_options['base_url'] ) : ''; ?>"
 		style="width:25em;"
 	>
 	<?php

@@ -13,7 +13,7 @@ import {
  * Internal dependencies
  */
 import RepositoryObjectList from '../components/repository-object-list';
-import FedoraRepository from '../class-fedora-repository';
+import RemoteRepository from '../class-remote-repository';
 
 const CommonsEmbedFront = props => {
 	const {
@@ -30,7 +30,7 @@ const CommonsEmbedFront = props => {
 	const [ searchResults, setSearchResults ] = useState( null );
 
 	if ( searchValues && baseURL && ! searchResults ) {
-		const repository = new FedoraRepository( baseURL );
+		const repository = new RemoteRepository();
 		const searchParameters = { query: searchValues };
 		repository.findObjects( searchParameters ).then( results => setSearchResults( results ) );
 	}

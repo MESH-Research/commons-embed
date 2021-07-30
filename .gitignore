@@ -8,3 +8,4 @@ node_modules
 *.code-workspace
 .vscode/
 .pytest_cache/
+vendor/

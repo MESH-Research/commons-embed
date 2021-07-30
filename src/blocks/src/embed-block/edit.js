@@ -7,8 +7,7 @@
  */
 import {
 	useState,
-	useEffect,
-	useRef
+	useEffect
 } from '@wordpress/element';
 
 import {
@@ -19,7 +18,7 @@ import {
 /**
  * Internal dependencies
  */
-import FedoraRepository from '../class-fedora-repository';
+import RemoteRepository from '../class-remote-repository';
 import RepositoryObjectList from '../components/repository-object-list';
 
 /**
@@ -40,10 +39,10 @@ const CommonsEmbedEdit = props => {
 
 	const [ searchResults, setSearchResults ] = useState( null );
 	const [ editSearch, setEditSearch ] = useState( false );
-	const [ newBaseURL, setNewBaseURL ] = useState( '' );
+	const [ fieldList, setFieldList ] = useState( [] );
 
 	useEffect( () => {
-		if ( baseURL && searchValues.length === 0 ) {
+		if ( searchValues.length === 0 ) {
 			setAttributes( {
 				searchValues: JSON.stringify( [
 					{ field: '', searchText: '', comparator: '' },
@@ -52,48 +51,14 @@ const CommonsEmbedEdit = props => {
 				] )
 			} );
 		}
-	 }, [ baseURL ] );
+	 }, [] );
 
 	 useEffect( () => {
-		if ( baseURL ) { 
-			setAttributes( { baseURL: cleanUrl( baseURL ) } );
-		}
-	 } );
-
-	const urlInput = useRef( null );
-
-	/**
-	 * Formats the URL consistently, with appropriate http prefix and trailing
-	 * '/'.
-	 */
-	const cleanUrl = ( newUrl ) => {
-		let cleanedUrl = newUrl.trim();
-		cleanedUrl = cleanedUrl.endsWith('/') ? cleanedUrl : cleanedUrl + '/';
-		cleanedUrl = cleanedUrl
-			.startsWith('http://') || cleanedUrl.startsWith('https://' ) ?
-			cleanedUrl :
-			'http://' + cleanedUrl;
-		return cleanedUrl;
-	}
-
-	const onUrlChange = event => {
-		setNewBaseURL ( event.target.value );
-	}
-
-	const maybeSaveUrl = event => {
-		if ( event.key === 'Enter' ) {
-			event.preventDefault();
-			event.stopPropagation();
-			saveUrl();
-		}
-	}
-
-	const saveUrl = () => {
-		if ( newBaseURL ) {
-			const cleanedUrl = cleanUrl( newBaseURL );
-			setAttributes( { baseURL: cleanedUrl } );
-		}
-	}
+		 if ( fieldList.length === 0 ) {
+			const repository = new RemoteRepository();
+			repository.getFieldList().then( result => setFieldList( result ) );
+		 }
+	 }, [] );
 
 	let blockContent = '';
 
@@ -117,10 +82,9 @@ const CommonsEmbedEdit = props => {
 
 	const doSearch = () => {
 		setEditSearch( false );
-		const repository = new FedoraRepository( baseURL );
+		const repository = new RemoteRepository();
 		setSearchResults( null );
-		const searchParameters = { query: searchValues };
-		repository.findObjects( searchParameters ).then( results => setSearchResults( results ) );
+		repository.findObjects( searchValues ).then( results => setSearchResults( results ) );
 	}
 
 	/**
@@ -150,10 +114,9 @@ const CommonsEmbedEdit = props => {
 			/>
 			</>
 		);
-	} else if ( baseURL ) {
-		const repository = new FedoraRepository( baseURL );
-		const fields = repository.getFieldList();
-		const selectOptions = fields.map( field => ( { label: field, value: field } ) );
+	} else {
+		
+		const selectOptions = fieldList.map( field => ( { label: field, value: field } ) );
 		const comparatorOptions = [
 			{ label: 'EQUALS',                value: '='  },
 			{ label: 'CONTAINS',              value: '~'  },
@@ -167,7 +130,7 @@ const CommonsEmbedEdit = props => {
 		for ( let row = 0; row < 3; row++ ) {
 			const selectedField = searchValues[ row ] && searchValues[ row ].field ? 
 				searchValues[ row ].field :
-				fields[0];
+				fieldList[0];
 			const searchText = searchValues[ row ] ?
 				searchValues[ row ].searchText :
 				'';
@@ -211,36 +174,7 @@ const CommonsEmbedEdit = props => {
 				</Button>
 			</div>
 		);
-	} else {
-		blockContent = (
-			<div className = 'fem-edit-search-wrapper'>
-				<div className = 'fem-edit-url-form'>
-					<div>
-						Enter Base URL for the remote repository.
-					</div>
-					<div>
-						<input
-							type        = 'url'
-							ref         = { urlInput }
-							placeholder = 'http://example.com'
-							pattern     = "https?:\/\/.*"
-							onChange    = { onUrlChange }
-							onKeyDown   = { maybeSaveUrl }
-							value       = { newBaseURL }
-						/>
-						<Button
-							className = 'fem-edit-url-form-save-button'
-							isPrimary
-							onClick = { saveUrl }
-						>
-							Save
-						</Button>
-					</div>
-				</div>
-			</div>
-		);
-	}
-
+	} 
 	return (
 		<>
 		{ blockContent }

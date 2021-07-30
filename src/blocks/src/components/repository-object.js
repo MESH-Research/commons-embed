@@ -20,7 +20,7 @@ import {
 
 import { getFileIcon } from '../util';
 
-import FedoraRepository from '../class-fedora-repository';
+import RemoteRepository from '../class-remote-repository';
 
 const RepositoryObject = props => {
 	const {
@@ -48,7 +48,7 @@ const RepositoryObject = props => {
 		if ( ! itemData && objectData && objectData.identifier && Array.isArray( objectData.identifier ) ) {
 			const itemID = objectData.identifier.find( ( id ) => id !== objectData.pid );
 			setHCItemID( itemID );
-			const repository = new FedoraRepository( baseURL );
+			const repository = new RemoteRepository();
 			repository.getItemData( itemID )
 				.then( ( result ) => {
 					setItemData( result );

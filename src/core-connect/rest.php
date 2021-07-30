@@ -3,9 +3,14 @@
  * Adds a REST endpoint that makes requests to the Fedora API and returns the result.
  *
  * @package MESHResearch\CommonsEmbed
+ * @subpackage CoreConnect
+ * @author Mike Thicke
+ *
+ * @since 0.2.0
+ * @since 0.3.0 Added /fields endpoint, refactored to use Hcommons_Repository.
  */
 
-namespace MESHResearch\CommonsConnect;
+namespace MESHResearch\CommonsConnect\CoreConnect;
 
 /**
  * Actions
@@ -43,6 +48,18 @@ function register_rest() {
 			],
 		]
 	);
+
+	register_rest_route(
+		'commons-connect/v1',
+		'/fields',
+		[
+			[
+				'methods'             => 'GET',
+				'permission_callback' => __NAMESPACE__ . '\rest_public_permissions_check',
+				'callback'            => __NAMESPACE__ . '\rest_fields_callback',
+			],
+		]
+	);
 }
 
 /**
@@ -66,23 +83,14 @@ function rest_public_permissions_check() {
  * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
  */
 function rest_find_callback( $request ) {
-	$CC_options = get_option( CC_PREFIX . 'options' );
-	if ( $CC_options ) {
-		$base_url = $CC_options['base_url'];
-	}
-	if ( ! $base_url ) {
-		$base_url = $request->get_param( 'baseURL' );
-	}
-	$base_url = esc_url_raw( $base_url );
-	if ( ! $base_url ) {
-		return new \WP_Error( 'no-remote-url', 'No base URL set for Fedora repository.' );
+	$repository = new Hcommons_Repository();
+	$response   = $repository->find_objects( $request->get_param( 'searchParameters' ) );
+
+	if ( is_null( $response ) ) {
+		return new \WP_Error( 'repository-error', 'Failed to search the repository.' );
 	}
 
-	$parameter_string = $request->get_param( 'parameterString' );
-	$fetch_address    = "{$base_url}objects/?{$parameter_string}";
-	$response_xml     = \simplexml_load_file( $fetch_address );
-
-	return rest_ensure_response( $response_xml );
+	return rest_ensure_response( $response );
 }
 
 /**
@@ -93,21 +101,23 @@ function rest_find_callback( $request ) {
  * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
  */
 function rest_item_callback( $request ) {
-	$CC_options = get_option( CC_PREFIX . 'options' );
-	if ( $CC_options ) {
-		$base_url = $CC_options['base_url'];
-	}
-	if ( ! $base_url ) {
-		$base_url = $request->get_param( 'baseURL' );
-	}
-	$base_url = esc_url_raw( $base_url );
-	if ( ! $base_url ) {
-		return new \WP_Error( 'no-remote-url', 'No base URL set for Fedora repository.' );
+	$repository = new Hcommons_Repository();
+	$response   = $repository->get_object_data( $request->get_param( 'pid' ) );
+
+	if ( is_null( $response ) ) {
+		return new \WP_Error( 'repository-error', 'Failed to search the repository.' );
 	}
 
-	$pid           = $request->get_param( 'pid' );
-	$fetch_address = "{$base_url}objects/{$pid}/datastreams/descMetadata/content";
-	$response_xml  = \simplexml_load_file( $fetch_address );
+	return rest_ensure_response( $response );
+}
 
-	return rest_ensure_response( $response_xml );
+/**
+ * Callback for /fields endpoint.
+ *
+ * @return \WP_REST_Response JSON encoded data from query to remote Fedora repository.
+ */
+function rest_fields_callback() {
+	$repository = new Hcommons_Repository();
+	$fields     = $repository->get_field_list();
+	return rest_ensure_response( $fields );
 }

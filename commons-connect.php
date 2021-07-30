@@ -16,8 +16,10 @@
 
 namespace MESHResearch\CommonsConnect;
 
-const CC_PREFIX = 'mcc_'; // prefix for options, etc.
+const CC_PREFIX = 'mcc_';                           // prefix for options, etc.
 
+// Is this a development build? Determines directory structure and whether
+// some debug settings are set. This is set to false by the release.sh script.
 const DEV_BUILD = true;
 
 // For dev builds, fedora-embbed.php is one directory up, so that the build
@@ -37,11 +39,38 @@ if ( DEV_BUILD ) {
 if ( DEV_BUILD ) {
 	global $wpdb;
 	$wpdb->show_errors = true;
+
+	// Stop auto refresh of pages when debugging.
+	add_action(
+		'init',
+		function () {
+			wp_deregister_script( 'heartbeat' );
+		},
+		1
+	);
+
+	// Flush rewrite rules when debugging.
+	add_action(
+		'init',
+		function() {
+			flush_rewrite_rules();
+		}
+	);
 }
 
+// Composer autoloader.
+if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+	require __DIR__ . '/vendor/autoload.php';
+}
+
+// General.
 require_once $require_prefix . 'settings-page.php';
+
+// Blocks.
 require_once $require_prefix . 'blocks/blocks.php';
-require_once $require_prefix . 'rest.php';
+
+// CoreConnect.
+require_once $require_prefix . 'core-connect/core-connect.php';
 
 // Adds setting options.
 add_options();

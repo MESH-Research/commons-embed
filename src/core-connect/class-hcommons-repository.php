@@ -28,13 +28,15 @@ class Hcommons_Repository extends Remote_Repository {
 	 * Sets the results schema for Fedora repository search results.
 	 *
 	 * @since 0.3.0
+	 *
+	 * @param string $base_url Base URL of the repository. Leave null for default.
 	 */
-	public function __construct() {
+	public function __construct( $base_url = null ) {
 		$results_schema = new JSON_Schema(
 			[
 				'$schema'    => 'http://json-schema.org/draft-04/schema#',
 				'title'      => 'fedora-search-results',
-				'type'       => 'object',
+				'type'       => 'array',
 				'properties' => [
 					'pid'         => [
 						'description' => 'Fedora persistent identifier',
@@ -50,7 +52,10 @@ class Hcommons_Repository extends Remote_Repository {
 					],
 					'ownerId'     => [
 						'description' => 'ID of object owner',
-						'type'        => 'string',
+						'type'        => 'array',
+						'items'       => [
+							'type' => 'string',
+						],
 					],
 					'cDate'       => [
 						'description' => 'Creation date of object',
@@ -73,14 +78,11 @@ class Hcommons_Repository extends Remote_Repository {
 					],
 					'creator'     => [
 						'description' => 'Creator(s) of object',
-						'type'        => 'array',
-						'items'       => [
-							'type' => 'string',
-						],
+						'type'        => 'string',
 					],
 					'subject'     => [
 						'description' => 'Subject(s) of object',
-						'type'        => 'array',
+						'type'        => [ 'array', 'string' ],
 						'items'       => [
 							'type' => 'string',
 						],
@@ -91,10 +93,7 @@ class Hcommons_Repository extends Remote_Repository {
 					],
 					'publisher'   => [
 						'description' => 'Publisher(s) of the object',
-						'type'        => 'array',
-						'items'       => [
-							'type' => 'string',
-						],
+						'type'        => 'string',
 					],
 					'contributor' => [
 						'description' => 'Contributor(s) to the object',
@@ -160,7 +159,7 @@ class Hcommons_Repository extends Remote_Repository {
 				],
 			],
 		);
-		$this->set_search_results_schema( $results_schema );
+		parent::__construct( $results_schema, $base_url );
 	}
 
 	/**
@@ -212,12 +211,14 @@ class Hcommons_Repository extends Remote_Repository {
 		$query_string = array_reduce(
 			$search_parameters,
 			function( $carry, $parameters_item ) use ( $comparator_encodings ) {
-				if ( $carry ) {
-					$carry .= '%20';
+				if ( $parameters_item['field'] && $parameters_item['searchText'] && $parameters_item['comparator'] ) {
+					if ( $carry ) {
+						$carry .= '%20';
+					}
+					$carry .= $parameters_item['field'];
+					$carry .= $comparator_encodings[ $parameters_item['comparator'] ];
+					$carry .= "'" . str_replace( ' ', '%20', $parameters_item['searchText'] ) . "'";
 				}
-				$carry .= $parameters_item['field'];
-				$carry .= $comparator_encodings[ $parameters_item['comparator'] ];
-				$carry .= "'" . str_replace( ' ', '%20', $comparator_encodings['search_text'] ) . "'";
 				return $carry;
 			},
 			''
@@ -239,17 +240,16 @@ class Hcommons_Repository extends Remote_Repository {
 	 * @return array The found objects, conforming to $results_schema
 	 */
 	public function find_objects( $search_parameters ): ?array {
-		$fields   = $this->get_field_list();
-		$base_url = get_base_repository_url();
+		$fields = $this->get_field_list();
 
-		if ( ! $base_url ) {
+		if ( ! $this->base_url ) {
 			return null;
 		}
 
 		$parameters = array_reduce(
 			$fields,
 			function( $carry, $field ) {
-				$carry[ $field ] = true;
+				$carry[ $field ] = 'true';
 				return $carry;
 			},
 			[]
@@ -273,10 +273,16 @@ class Hcommons_Repository extends Remote_Repository {
 			$parameter_string .= "$key=$value";
 		}
 
-		$fetch_address      = "{$base_url}objects/?{$parameter_string}";
-		$response_xml       = \simplexml_load_file( $fetch_address );
-		$sanitized_response = $this->results_schema->validate_and_sanitize_data( wp_json_encode( $response_xml ) );
-		return $sanitized_response;
+		$fetch_address  = "{$this->base_url}objects/?{$parameter_string}";
+		$response_xml   = \simplexml_load_file( $fetch_address );
+		$response_array = json_decode( wp_json_encode( $response_xml ), true );
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		if ( $response_array['resultList'] && $response_array['resultList']['objectFields'] ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$sanitized_response = $this->results_schema->validate_and_sanitize_data( $response_array['resultList']['objectFields'] );
+			return $sanitized_response;
+		}
+		return null;
 	}
 
 	/**
@@ -291,16 +297,14 @@ class Hcommons_Repository extends Remote_Repository {
 	 * @return array Associative array of object data.
 	 */
 	public function get_object_data( $object_id ) : ?array {
-		$base_url = get_base_repository_url();
-
-		if ( ! $base_url ) {
+		if ( ! $this->base_url ) {
 			return null;
 		}
 
-		$fetch_address      = "{$base_url}objects/{$object_id}/datastreams/descMetadata/content";
-		$response_xml       = \simplexml_load_file( $fetch_address );
-		$sanitized_response = $this->results_schema->validate_and_sanitize_data( wp_json_encode( $response_xml ) );
+		$fetch_address  = "{$this->base_url}objects/{$object_id}/datastreams/descMetadata/content";
+		$response_xml   = \simplexml_load_file( $fetch_address );
+		$response_array = json_decode( wp_json_encode( $response_xml ), true );
 
-		return $sanitized_response;
+		return $response_array;
 	}
 }

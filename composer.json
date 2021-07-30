@@ -1,0 +1,16 @@
+{
+    "name": "mesh-research/commons-connect",
+    "description": "Plugin for connecting WordPress sites to Humanities Commons.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mike Thicke",
+            "email": "thickemi@msu.edu"
+        }
+    ],
+    "require": {
+        "justinrainbow/json-schema": "^5.2",
+        "composer/installers": "^1.11"
+    }
+}

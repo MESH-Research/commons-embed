@@ -19,10 +19,10 @@ const RepositoryObjectList = props => {
 	 * array.
 	 */
 	let objectArray = [];
-	if ( Array.isArray( objectsData.resultList.objectFields ) ) {
-		objectArray = objectsData.resultList.objectFields;
+	if ( Array.isArray( objectsData ) ) {
+		objectArray = objectsData;
 	} else {
-		objectArray[0] = objectsData.resultList.objectFields;
+		objectArray[0] = objectsData;
 	}
 
 	const objectsList = objectArray.map( ( objectItem, index ) => {

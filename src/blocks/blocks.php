@@ -5,7 +5,10 @@
  * @package MikeThicke\WordPress
  */
 
-namespace MESHResearch\CommonsConnect;
+namespace MESHResearch\CommonsConnect\Blocks;
+
+use const MESHResearch\CommonsConnect\CC_PREFIX;
+use const MESHResearch\CommonsConnect\DEV_BUILD;
 
 /**
  * Actions
@@ -18,16 +21,11 @@ add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\enqueue_block_frontend_scrip
  * Registers the Fedora Embed block.
  */
 function register_embed_block() {
-	$CC_options = get_option( CC_PREFIX . 'options' );
 	register_block_type(
-		'fedora-embed/fedora-embed',
+		'commons-connect/core-connect',
 		[
-			'render_callback' => __NAMESPACE__ . '\render_fedora_embed_block',
+			'render_callback' => __NAMESPACE__ . '\render_core_connect_block',
 			'attributes'      => [
-				'baseURL'      => [
-					'default' => $CC_options['base_url'],
-					'type'    => 'string',
-				],
 				'searchValues' => [
 					'default' => '',
 					'type'    => 'string', // JSON encoded string.
@@ -42,12 +40,12 @@ function register_embed_block() {
  *
  * @param Array $attributes The block attributes.
  */
-function render_fedora_embed_block( $attributes ) {
+function render_core_connect_block( $attributes ) {
 	if ( is_admin() ) {
 		return null;
 	}
 
-	$encoded_attributes = wp_json_encode( $attributes );
+	$encoded_attributes = wp_wp_json_encode( $attributes );
 
 	return (
 		"<div 
