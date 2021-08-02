@@ -1,7 +1,5 @@
 # Commons Connect
 
-Edit
-
 Commons Connect is a WordPress single-block plugin for embedding items from
 the [Humanities Commons CORE](https://hcommons.org/core/) repostory in WordPress posts and
 pages.
