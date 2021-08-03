@@ -101,16 +101,32 @@ class JSON_Schema implements \JsonSerializable {
 	 *
 	 * @since 0.3.0
 	 *
-	 * @param string $data JSON-encoded data to be validated.
+	 * @param mixed $data JSON-encoded data to be validated.
 	 *
 	 * @return bool Whether the data conforms to the schema.
 	 */
-	public function validate_data( string $data ) : bool {
+	public function validate_data( $data ) : bool {
 		$validator = new Validator();
 
-		$data_object = json_decode( $data );
-		$validator->validate( $data_object, $this->schema );
-		return $validator->isValid();
+		if ( is_string( $data ) ) {
+			$data_object = json_decode( $data );
+		} else {
+			$data_object = $data;
+		}
+
+		if ( ! is_array( $data_object ) ) {
+			$data_array = [ $data_object ];
+		} else {
+			$data_array = $data_object;
+		}
+
+		foreach ( $data_array as $data_item ) {
+			$validator->validate( $data_item, $this->schema, Constraint::CHECK_MODE_COERCE_TYPES );
+			if ( ! $validator->isValid() ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
