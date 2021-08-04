@@ -21,7 +21,6 @@ const CommonsEmbedFront = props => {
 	} = props;
 
 	const {
-		baseURL,
 		searchValues : searchValuesString
 	} = attributes;
 
@@ -29,9 +28,15 @@ const CommonsEmbedFront = props => {
 
 	const [ searchResults, setSearchResults ] = useState( null );
 
-	if ( searchValues && ! searchResults ) {
+	if ( searchValues.length > 0 && ! searchResults ) {
 		const repository = new RemoteRepository();
 		repository.findObjects( searchValues ).then( results => setSearchResults( results ) );
+	} else if ( searchValues.length === 0 ) {
+		return (
+			<div className = 'fem-embed-block-front'>
+				<em>No search terms have been saved.</em>
+			</div>
+		)
 	}
 
 	return (
