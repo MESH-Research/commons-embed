@@ -12,5 +12,8 @@
     "require": {
         "justinrainbow/json-schema": "^5.2",
         "composer/installers": "^1.11"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.5.20"
     }
 }

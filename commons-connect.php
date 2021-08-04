@@ -25,9 +25,9 @@ const DEV_BUILD = true;
 // For dev builds, fedora-embbed.php is one directory up, so that the build
 // will be detected by WordPress as a plugin.
 if ( DEV_BUILD ) {
-	$require_prefix = 'src/';
+	$require_prefix = \plugin_dir_path( __FILE__ ) . 'src/';
 } else {
-	$require_prefix = '';
+	$require_prefix = \plugin_dir_path( __FILE__ );
 }
 
 if ( DEV_BUILD ) {
