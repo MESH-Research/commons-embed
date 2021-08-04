@@ -8,7 +8,7 @@
 
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" type="array" value="fedora-embed" />
+            <property name="text_domain" type="array" value="commons-embed" />
         </properties>
     </rule>
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>

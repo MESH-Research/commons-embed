@@ -16,7 +16,10 @@
 
 namespace MESHResearch\CommonsConnect;
 
-const CC_PREFIX = 'mcc_';                           // prefix for options, etc.
+const MIN_PHP = '7.4.0'; // For type definitions on class properties.
+const MIN_WP  = '5.0.0';
+
+const CC_PREFIX = 'mcc_'; // prefix for options, etc.
 
 // Is this a development build? Determines directory structure and whether
 // some debug settings are set. This is set to false by the release.sh script.
@@ -58,19 +61,27 @@ if ( DEV_BUILD ) {
 	);
 }
 
-// Composer autoloader.
-if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
-	require __DIR__ . '/vendor/autoload.php';
+require_once $require_prefix . 'housekeeping.php';
+
+if ( requirements_satisfied() ) {
+	// Composer autoloader.
+	if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+		require __DIR__ . '/vendor/autoload.php';
+	}
+
+	// General.
+	require_once $require_prefix . 'settings-page.php';
+
+	// Blocks.
+	require_once $require_prefix . 'blocks/blocks.php';
+
+	// CoreConnect.
+	require_once $require_prefix . 'core-connect/core-connect.php';
+
+	// Adds setting options.
+	add_options();
+} else {
+	add_action( 'admin_notices', __NAMESPACE__ . '\report_unsatisfied_requirements' );
 }
 
-// General.
-require_once $require_prefix . 'settings-page.php';
 
-// Blocks.
-require_once $require_prefix . 'blocks/blocks.php';
-
-// CoreConnect.
-require_once $require_prefix . 'core-connect/core-connect.php';
-
-// Adds setting options.
-add_options();
