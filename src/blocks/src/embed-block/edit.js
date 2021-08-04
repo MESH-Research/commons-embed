@@ -108,13 +108,11 @@ const CommonsEmbedEdit = props => {
 				</Button>
 			</div>
 			<RepositoryObjectList
-				baseURL     = { baseURL }
 				objectsData = { searchResults }
 			/>
 			</>
 		);
 	} else {
-		
 		const selectOptions = fieldList.map( field => ( { label: field, value: field } ) );
 		const comparatorOptions = [
 			{ label: 'EQUALS',                value: '='  },

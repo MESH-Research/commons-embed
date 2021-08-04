@@ -24,7 +24,6 @@ import RemoteRepository from '../class-remote-repository';
 
 const RepositoryObject = props => {
 	const {
-		baseURL,
 		objectData
 	} = props;
 
@@ -61,13 +60,8 @@ const RepositoryObject = props => {
 	 */
 	if ( ! objectData || ! itemData ) {
 		return (
-			<div className = 'fem-object'>
-				{ !! objectData &&
-					<div className = 'fem-object-title'>
-						{ !! objectData.title && objectData.title }
-					</div>
-				}
-				<div className = 'fem-object-placeholder'>
+			<div className = 'fem-object fem-object-placeholder'>
+				<div className = 'mcc-placeholder'>
 
 				</div>
 			</div>
