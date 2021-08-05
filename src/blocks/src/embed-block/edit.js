@@ -99,17 +99,23 @@ const CommonsEmbedEdit = props => {
 	if ( searchResults && ! editSearch ) {
 		blockContent = (
 			<>
-			<div className = 'fem-repository-object-list-edit'>
-				<Button className = 'fem-repository-object-list-edit-button'
+			<div className = 'mcc-repository-object-list-edit'>
+				<Button className = 'mcc-repository-object-list-edit-button'
 					isPrimary
 					onClick = { () => setEditSearch( true ) }
 				>
 					Edit Search
 				</Button>
 			</div>
-			<RepositoryObjectList
-				objectsData = { searchResults }
-			/>
+			{ searchResults.length > 0 ?
+				<RepositoryObjectList
+					objectsData = { searchResults }
+				/>
+				:
+				<div className = 'mcc-edit-search-wrapper no-results'>
+					Search returned no results.
+				</div>
+			}
 			</>
 		);
 	} else {
@@ -135,20 +141,20 @@ const CommonsEmbedEdit = props => {
 				searchValues[ row ].comparator :
 				comparatorOptions[0].value;
 			searchFields[ row ] = (
-				<div className = 'fem-edit-search'
+				<div className = 'mcc-edit-search'
 					key = { row }
 				>
-					<SelectControl className = 'fem-edit-search-fields-select'
+					<SelectControl className = 'mcc-edit-search-fields-select'
 						value    = { selectedField }
 						options  = { selectOptions }
 						onChange = { val => setSearchField( row, val ) }
 					/>
-					<SelectControl className = 'fem-edit-search-comparator-select'
+					<SelectControl className = 'mcc-edit-search-comparator-select'
 						value    = { comparator }
 						options  = { comparatorOptions }
 						onChange = { val => setComparator( row, val ) }
 					/>
-					<input className = 'fem-edit-search-input'
+					<input className = 'mcc-edit-search-input'
 						type     = 'text'
 						onChange = { event => setSearchText( row, event.target.value ) }
 						value    = { searchText }
@@ -158,12 +164,12 @@ const CommonsEmbedEdit = props => {
 		}
 
 		blockContent = (
-			<div className = 'fem-edit-search-wrapper'>
-				<div className = 'fem-edit-search-instructions'>
+			<div className = 'mcc-edit-search-wrapper'>
+				<div className = 'mcc-edit-search-instructions'>
 					Search for items in the remote repository.
 				</div>
 				{ searchFields }
-				<Button className = 'fem-edit-search-button'
+				<Button className = 'mcc-edit-search-button'
 					isPrimary
 					onClick = { doSearch }
 				>

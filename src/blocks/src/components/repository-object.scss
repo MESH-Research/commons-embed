@@ -1,4 +1,4 @@
-.fem-object {
+.mcc-object {
 	border-color: grey;
 	border-style: solid;
 	border-width: 1px;
@@ -11,21 +11,21 @@
 		text-decoration: none !important;
 	}
 
-	&.fem-object-placeholder {
+	&.mcc-object-placeholder {
 		height: 15em;
 		width: 100%;
 		padding: 0;
 	}
 	
-	.fem-object-title {
+	.mcc-object-title {
 		font-size: 1.2em;
 	}
 
-	.fem-object-hc-link-hcc {
+	.mcc-object-hc-link-hcc {
 		font-style: italic;
 	}
 
-	.fem-object-description-wrapper {
+	.mcc-object-description-wrapper {
 		a {
 			svg {
 				height: 1em;
@@ -35,7 +35,7 @@
 			cursor: pointer;
 		}
 
-		.fem-object-description {
+		.mcc-object-description {
 			overflow: hidden;
 			transition-property: max-height;
 			transition-duration: 0.3s;
@@ -51,7 +51,7 @@
 		}
 	}
 
-	.fem-object-file-links {
+	.mcc-object-file-links {
 		a {
 			display: inline-block;
 			border-color: grey;

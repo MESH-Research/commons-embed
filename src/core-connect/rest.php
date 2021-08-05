@@ -87,7 +87,7 @@ function rest_find_callback( $request ) {
 	$response   = $repository->find_objects( $request->get_param( 'searchParameters' ) );
 
 	if ( is_null( $response ) ) {
-		return new \WP_Error( 'repository-error', 'Failed to search the repository.' );
+		$response = new \WP_Error( 'repository-error', 'Failed to search the repository.' );
 	}
 
 	return rest_ensure_response( $response );

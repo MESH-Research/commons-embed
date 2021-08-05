@@ -33,14 +33,14 @@ const CommonsEmbedFront = props => {
 		repository.findObjects( searchValues ).then( results => setSearchResults( results ) );
 	} else if ( searchValues.length === 0 ) {
 		return (
-			<div className = 'fem-embed-block-front'>
+			<div className = 'mcc-embed-block-front'>
 				<em>No search terms have been saved.</em>
 			</div>
 		)
 	}
 
 	return (
-		<div className = 'fem-embed-block-front'>
+		<div className = 'mcc-embed-block-front'>
 			{ searchResults &&
 				<RepositoryObjectList
 					objectsData = { searchResults }

@@ -22,7 +22,7 @@ up-to-date and consistently formatted.
 
 Here is how it looks to your visitors:
 
-![Front-end view of plugin](docs/assets/fem-front-view.png)
+![Front-end view of plugin](docs/assets/mcc-front-view.png)
 *Front-end view of the plugin*
 
 ## Usage
@@ -32,7 +32,7 @@ Here is how it looks to your visitors:
 2. Add or edit a page or post with the WordPress block editor (the classic editor is not currently supported).
 3. Using the block inserter ( type '/' or click the + icon), insert a Commons Connect block. You should see something like this:
 
-![Search form](docs/assets/fem-search-form.png)
+![Search form](docs/assets/mcc-search-form.png)
 
 4. Fill out the search form and click 'Search'. If there are any results for
    your search, the search form will be replaced by the front-end view of the

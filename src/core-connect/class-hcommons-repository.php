@@ -277,23 +277,27 @@ class Hcommons_Repository extends Remote_Repository {
 		$response_xml   = \simplexml_load_file( $fetch_address );
 		$response_array = json_decode( wp_json_encode( $response_xml ), true );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		if ( $response_array['resultList'] && $response_array['resultList']['objectFields'] ) {
-			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$sanitized_response = $this->results_schema->validate_and_sanitize_data( $response_array['resultList']['objectFields'] );
-			foreach ( $sanitized_response as &$response_item ) {
-				if ( array_key_exists( 'pid', $response_item ) && array_key_exists( 'label', $response_item ) ) {
-					$download_url = "{$this->base_url}download/{$response_item['pid']}/CONTENT/{$response_item['label']}";
-					$view_url     = "{$this->base_url}view/{$response_item['pid']}/CONTENT/{$response_item['label']}";
-				} else {
-					$download_url = '';
-					$view_url     = '';
+		if ( array_key_exists( 'resultList', $response_array ) ) {
+			if ( array_key_exists( 'objectFields', $response_array['resultList'] ) ) {
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$sanitized_response = $this->results_schema->validate_and_sanitize_data( $response_array['resultList']['objectFields'] );
+				foreach ( $sanitized_response as &$response_item ) {
+					if ( array_key_exists( 'pid', $response_item ) && array_key_exists( 'label', $response_item ) ) {
+						$download_url = "{$this->base_url}download/{$response_item['pid']}/CONTENT/{$response_item['label']}";
+						$view_url     = "{$this->base_url}view/{$response_item['pid']}/CONTENT/{$response_item['label']}";
+					} else {
+						$download_url = '';
+						$view_url     = '';
+					}
+					$response_item['download'] = $download_url;
+					$response_item['view']     = $view_url;
 				}
-				$response_item['download'] = $download_url;
-				$response_item['view']     = $view_url;
+				return $sanitized_response;
+			} else {
+				return []; // No results.
 			}
-			return $sanitized_response;
 		}
-		return null;
+		return null; // Failed to search.
 	}
 
 	/**
