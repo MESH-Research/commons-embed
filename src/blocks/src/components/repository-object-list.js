@@ -42,7 +42,7 @@ const RepositoryObjectList = props => {
 	} );
 
 	return (
-		<div className = 'fem-repository-object-list'>
+		<div className = 'mcc-repository-object-list'>
 			{ objectsList }
 		</div>
 	)

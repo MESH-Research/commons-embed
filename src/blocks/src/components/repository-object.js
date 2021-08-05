@@ -60,7 +60,7 @@ const RepositoryObject = props => {
 	 */
 	if ( ! objectData || ! itemData ) {
 		return (
-			<div className = 'fem-object fem-object-placeholder'>
+			<div className = 'mcc-object mcc-object-placeholder'>
 				<div className = 'mcc-placeholder'>
 
 				</div>
@@ -98,18 +98,18 @@ const RepositoryObject = props => {
 	}
 
 	return (
-		<div className = 'fem-object'>
-			<div className = 'fem-object-title'>
+		<div className = 'mcc-object'>
+			<div className = 'mcc-object-title'>
 				{ !! objectData.title && objectData.title }
 			</div>
-			<div className = 'fem-object-creator'>
+			<div className = 'mcc-object-creator'>
 				{ creatorString }
 				{ ! sourceString && !! objectData.date &&
 					<span> ({ objectData.date })</span>
 				}
 			</div>
 			{ !! sourceString && 
-				<div className = 'fem-object-publisher'>
+				<div className = 'mcc-object-publisher'>
 					<span>{ sourceString }</span>
 					{ !! objectData.date &&
 						<span> ({ objectData.date })</span>
@@ -117,30 +117,30 @@ const RepositoryObject = props => {
 				</div>
 			}
 			{ doiString &&
-				<div className = 'fem-object-doi'>
+				<div className = 'mcc-object-doi'>
 					<a href = { `http://dx.doi.org/${doiString}` }>{ doiString }</a>
 				</div>
 			}
 			{ !! objectData.description &&
-				<div className = 'fem-object-description-wrapper'>
+				<div className = 'mcc-object-description-wrapper'>
 					<a onClick = { toggleAbstract }>
 						{ abstractVisible && chevronDown }
 						{ ! abstractVisible && chevronRight }
 						Abstract
 					</a>
-					<div className = { 'fem-object-description' + ( abstractVisible ? ' open' : ' closed' ) }>
+					<div className = { 'mcc-object-description' + ( abstractVisible ? ' open' : ' closed' ) }>
 						{ objectData.description }
 					</div>
 				</div>
 			}
 			{ !! HCItemID &&
-				<div className = 'fem-object-hc-link'>
+				<div className = 'mcc-object-hc-link'>
 					<a href = { `https://hcommons.org/deposits/item/${HCItemID}`}>
-						View full record on <span className='fem-object-hc-link-hcc'>Humanities Commons CORE</span>
+						View full record on <span className='mcc-object-hc-link-hcc'>Humanities Commons CORE</span>
 					</a>
 				</div>
 			}
-			<div className = 'fem-object-file-links'>
+			<div className = 'mcc-object-file-links'>
 				{ !! fileIcon && fileIcon }
 				<a href={ objectData.download }>Download</a>
 				<a href={ objectData.view }>View</a>

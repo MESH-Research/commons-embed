@@ -1,17 +1,21 @@
-.fem-edit-search-wrapper {
+.mcc-edit-search-wrapper {
 	border-style: solid;
 	border-radius: 5px;
 	border-width: 1px;
 	border-color: grey;
 	padding: 1em;
 
-	.fem-edit-search-instructions {
+	&.no-results {
+		margin-top: 1em;
+	}
+
+	.mcc-edit-search-instructions {
 		font-style: italic;
 		margin-top: 0;
 		margin-bottom: 0.5em;
 	}
 
-	.fem-edit-search {
+	.mcc-edit-search {
 		display: flex;
 		flex-direction: row;
 		margin-bottom: 1em;
@@ -21,31 +25,31 @@
 			margin-right: 10px;
 		}
 
-		.fem-edit-search-fields-select {
+		.mcc-edit-search-fields-select {
 			flex-basis: 20%;
 			flex-grow: 1;
 		}
 
-		.fem-edit-search-comparator-select {
+		.mcc-edit-search-comparator-select {
 			flex-basis: 20%;
 			flex-grow: 1;
 		}
 
-		.fem-edit-search-input {
+		.mcc-edit-search-input {
 			flex-basis: 60%;
 			flex-shrink: 1;
 		}
 	}
 }
 
-.fem-repository-object-list-edit {
+.mcc-repository-object-list-edit {
 	display: flex;
 	flex-direction: row-reverse;
 	margin-right: 1em;
 	margin-top: 0.5em;
 }
 
-.fem-edit-url-form {
+.mcc-edit-url-form {
 	input {
 		width: 20em;
 		margin-right: 1em;

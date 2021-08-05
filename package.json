@@ -1,23 +1,23 @@
 {
-  "name": "fedora-embed",
-  "version": "0.0.1",
-  "description": "Embeds items stored in Fedora repositories in WordPress.",
+  "name": "commons-connectnp",
+  "version": "0.3.0",
+  "description": "Embeds items stored in the Humanties Commons CORE repository in WordPress.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "wp-scripts build /src/blocks/src/index.js /src/blocks/src/frontend.js --output-path=src/blocks/build",
-    "start": "wp-scripts start /src/blocks/src/index.js /src/blocks/src/frontend.js --output-path=src/blocks/build"
+    "build": "wp-scripts build src/blocks/src/index.js src/blocks/src/frontend.js --output-path=src/blocks/build",
+    "start": "wp-scripts start src/blocks/src/index.js src/blocks/src/frontend.js --output-path=src/blocks/build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mikethicke/fedora-embed.git"
+    "url": "git+https://github.com/MESH-Research/commons-connect"
   },
   "author": "Mike Thicke",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mikethicke/fedora-embed/issues"
+    "url": "https://github.com/MESH-Research/commons-connect/issues"
   },
-  "homepage": "https://github.com/mikethicke/fedora-embed#readme",
+  "homepage": "https://github.com/MESH-Research/commons-connect#readme",
   "devDependencies": {
     "@wordpress/scripts": "^14.0.0"
   },
@@ -27,7 +27,6 @@
     "@wordpress/blocks": "^8.0.0",
     "@wordpress/components": "^13.0.0",
     "@wordpress/element": "^2.20.0",
-    "@wordpress/i18n": "^3.19.0",
-    "xml-js": "^1.6.11"
+    "@wordpress/i18n": "^3.19.0"
   }
 }
