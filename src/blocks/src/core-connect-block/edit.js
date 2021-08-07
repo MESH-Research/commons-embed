@@ -91,10 +91,10 @@ const CommonsEmbedEdit = props => {
 	 * 
 	 * (1) There are search results to display and the user has not clicked 'Edit Search'
 	 *      -> display search results
-	 * (2) Not (1), but baseURL is set, either in settings page or in block.
+	 * (2) The user has clicked 'Search' but there are no results
+	 *      -> display 'Search returned no results.'
+	 * (3) The search has not been performed, or the user has clicked 'Edit Search'
 	 *      -> display search form
-	 * (3) baseURL is not set
-	 *      -> display baseURL form
 	 */
 	if ( searchResults && ! editSearch ) {
 		blockContent = (

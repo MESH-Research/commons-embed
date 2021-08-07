@@ -1,3 +1,3 @@
-import './embed-block';
+import './core-connect-block';
 
 import './editor.scss';

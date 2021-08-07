@@ -8,7 +8,7 @@ import {
 /**
  * Internal dependencies
  */
-import CommonsEmbedFront from './embed-block/front';
+import CommonsEmbedFront from './core-connect-block/front';
 import {
 	attributesFromJSON
 } from './util';
@@ -19,7 +19,7 @@ import './style.scss';
  * Render Fedora Embed blocks.
  *
  * Render callback ( @see blocks.php ) outputs <div> elements with
- * 'mcc-embed-block-frontend' class and JSON-encoded attributes. Find each of
+ * 'mcc-core-connect-block-frontend' class and JSON-encoded attributes. Find each of
  * those <div>s in the page and render the frontend view of the block in them.
  */
 const embedBlockElements = document.getElementsByClassName('core-connect-block-frontend');
