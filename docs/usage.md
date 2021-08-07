@@ -112,8 +112,6 @@ and one that searches for syllabi.
 Site-wide settings are accessed through the Settings | Commons Connect menu in
 the WordPress admin interface.
 
-![Commons Connect settings menu](assets/cc-settings-menu.png).
-
 ### Repository base URL
 
 The base URL of the repository, https://hcommons.org/deposits/ for Humanities
