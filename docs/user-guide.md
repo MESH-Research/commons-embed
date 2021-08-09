@@ -1,7 +1,7 @@
 ---
 layout: page
 title: User Guide
-permalink: user-guid/
+permalink: user-guide
 ---
 # Commons Connect User Guide
 
