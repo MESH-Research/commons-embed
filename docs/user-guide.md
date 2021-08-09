@@ -1,3 +1,8 @@
+---
+layout: page
+title: User Guide
+permalink: user-guid/
+---
 # Commons Connect User Guide
 
 Commons Connect allows WordPress sites to embed content from [Humanities
