@@ -3,7 +3,6 @@ layout: page
 title: User Guide
 permalink: user-guide
 ---
-# Commons Connect User Guide
 
 Commons Connect allows WordPress sites to embed content from [Humanities
 Commons](https://hcommons.org/). It is developed by [MESH

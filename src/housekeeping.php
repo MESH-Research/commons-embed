@@ -3,7 +3,7 @@
  * Functions that handle activation, deactivation, uninstall, and requirements
  * checking.
  *
- * @package MESHResearch\CommonsEmbed
+ * @package MESHResearch\CommonsConnect
  * @author Mike Thicke
  *
  * @since 0.3.0
@@ -66,3 +66,4 @@ function report_unsatisfied_requirements() {
 	<?php
 	//phpcs:enable
 }
+

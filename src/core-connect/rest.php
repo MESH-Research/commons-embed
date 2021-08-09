@@ -2,7 +2,7 @@
 /**
  * Adds a REST endpoint that makes requests to the Fedora API and returns the result.
  *
- * @package MESHResearch\CommonsEmbed
+ * @package MESHResearch\CommonsConnect
  * @subpackage CoreConnect
  * @author Mike Thicke
  *
@@ -12,7 +12,7 @@
 
 namespace MESHResearch\CommonsConnect\CoreConnect;
 
-/**
+/*
  * Actions
  */
 add_action( 'rest_api_init', __NAMESPACE__ . '\register_rest' );

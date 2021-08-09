@@ -61,6 +61,10 @@ if ( DEV_BUILD ) {
 	);
 }
 
+
+// URL for the User Guide
+const USER_GUIDE_URL = 'https://mesh-research.github.io/commons-connect/user-guide';
+
 require_once $require_prefix . 'housekeeping.php';
 
 if ( requirements_satisfied() ) {
@@ -70,6 +74,9 @@ if ( requirements_satisfied() ) {
 	}
 
 	// General.
+	require_once $require_prefix . 'general.php';
+
+	// Settings.
 	require_once $require_prefix . 'settings-page.php';
 
 	// Blocks.

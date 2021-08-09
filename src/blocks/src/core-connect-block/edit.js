@@ -20,6 +20,7 @@ import {
  */
 import RemoteRepository from '../class-remote-repository';
 import RepositoryObjectList from '../components/repository-object-list';
+import { issuesURL, userGuideURL } from '../const';
 
 /**
  * Block editor view of the block.
@@ -165,6 +166,12 @@ const CommonsEmbedEdit = props => {
 
 		blockContent = (
 			<div className = 'mcc-edit-search-wrapper'>
+				<div className = 'mcc-editor-links'>
+					<ul>
+						<li><a href={ userGuideURL } target='_blank'>User Guide</a></li>
+						<li><a href={ issuesURL } target='_blank'>Found a Bug?</a></li>
+					</ul>
+				</div>
 				<div className = 'mcc-edit-search-instructions'>
 					Search for items in the remote repository.
 				</div>

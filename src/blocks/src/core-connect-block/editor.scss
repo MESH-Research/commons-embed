@@ -15,6 +15,21 @@
 		margin-bottom: 0.5em;
 	}
 
+	.mcc-editor-links {
+		ul {
+			display: flex;
+			flex-direction: row-reverse;
+			list-style-type: none;
+			margin: 0;
+		
+			li {
+				display: block;
+				margin-left: 0.5em;
+				margin-right: 0.5em;
+			}
+		}
+	}
+
 	.mcc-edit-search {
 		display: flex;
 		flex-direction: row;

@@ -2,7 +2,7 @@
 /**
  * Base file for CoreConnect component of CommonsConnect
  *
- * @package MESHResearch\CommonsEmbed
+ * @package MESHResearch\CommonsConnect
  * @subpackage CoreConnect
  * @author Mike Thicke
  *

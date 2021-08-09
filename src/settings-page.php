@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/plugins/settings/custom-settings-page/
  *
- * @package MESHResearch\CommonsEmbed
+ * @package MESHResearch\CommonsConnect
  */
 
 namespace MESHResearch\CommonsConnect;
@@ -96,7 +96,11 @@ function settings_page_html() {
  * Displays options section.
  */
 function options_section_callback() {
-	return null;
+	?>
+	<div class= '<?= CC_PREFIX ?>options_section'>
+		For explanation of Commons Connect settings, please consult the <a href='<?= USER_GUIDE_URL ?>' target='_blank'>user guide</a>.
+	</div>
+	<?php
 }
 
 /**
