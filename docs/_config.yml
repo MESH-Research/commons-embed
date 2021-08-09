@@ -50,6 +50,6 @@ plugins:
 #   - vendor/ruby/
 
 # GitHub Pages
-domain: mesh-research.github.io                          # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
-url: https://mesh-research.github.io/commons-connect/    # the base hostname and protocol for your site, e.g. http://example.com
-baseurl: /docs                                           # place folder name if the site is served in a subfolder   
+domain: mesh-research.github.io        # if you want to force HTTPS, specify the domain without the http at the start, e.g. example.com
+url: https://mesh-research.github.io   # the base hostname and protocol for your site, e.g. http://example.com
+baseurl: /commons-connect/docs         # place folder name if the site is served in a subfolder   
