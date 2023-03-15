@@ -1,4 +1,4 @@
-*** This project is no longer being developed. Its functionality will be incorporated into the new [CommonsConnect](https://github.com/MESH-Research/commons-connect/) project***
+*** This project is no longer being developed. Its functionality will be incorporated into the new [CommonsConnect](https://github.com/MESH-Research/commons-connect/) project ***
 
 # Commons Connect
 
